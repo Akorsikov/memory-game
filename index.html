@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory game</title>    
+    <link rel="icon" href="./assets/logo/favicon.png">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Memory Card</h1>
+    </header>
+    <main class="main">
+        <section class="game-over">
+            <div class="result">
+                <p class="result-text">
+                    Ваш результат:
+                    <span class="result-time"></span>                    
+                </p>
+            </div>
+            <div class="input">
+                <input  class="input-name" 
+                        name="name"                         
+                        autocomplete="off" 
+                        maxlength="9"
+                        placeholder="Введите ваше имя..."
+                        value=""
+                >
+                <button class="input-button">Ввод</button>
+            </div>
+        </section>
+        <div class="theme">
+            <div>
+                <h5>Выбор темы:</h5>
+                <label>
+                    <input class="animals-theme" name="theme" type="radio" checked>
+                    <span class="span-animals">Животные</span>
+                </label>
+                <label>
+                    <input class="pirates-theme" name="theme" type="radio">
+                    <span class="span-pirates">Пираты</span>
+                </label>
+            </div>
+            <audio class="audio" controls loop>               
+            </audio>            
+        </div>
+        <section class="game-field">
+
+            <div class="memory-card" data-image="1" data-theme="1">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="2" data-theme="2">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="3" data-theme="3">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="4" data-theme="4">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="5" data-theme="5">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="6" data-theme="6">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>            
+            
+            <div class="memory-card" data-image="1" data-theme="7">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+
+            <div class="memory-card" data-image="2" data-theme="8">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="3" data-theme="9">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="4" data-theme="10">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="5" data-theme="11">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+            <div class="memory-card" data-image="6" data-theme="12">
+                <img class="front-face" src="" alt="">
+                <img class="back-face" src="" alt="">
+            </div>
+            
+        </section>
+        <section class="statistic">
+            <div class="list-past">
+                <h3>10 последних игр</h3>
+                <ol>
+                    <li class="item-list"><span class="name-past" data-list="0">----</span><span class="time-past" data-list="0">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="1">----</span><span class="time-past" data-list="1">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="2">----</span><span class="time-past" data-list="2">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="3">----</span><span class="time-past" data-list="3">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="4">----</span><span class="time-past" data-list="4">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="5">----</span><span class="time-past" data-list="5">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="6">----</span><span class="time-past" data-list="6">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="7">----</span><span class="time-past" data-list="7">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="8">----</span><span class="time-past" data-list="8">----</span></li>
+                    <li class="item-list"><span class="name-past" data-list="9">----</span><span class="time-past" data-list="9">----</span></li>
+                </ol>
+            </div>
+            <div class="list-win">
+                <h3>10 лучших игр</h3>
+                <ol>
+                    <li class="item-list"><span class="name-win" data-list="0">----</span><span class="time-win" data-list="0">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="1">----</span><span class="time-win" data-list="1">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="2">----</span><span class="time-win" data-list="2">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="3">----</span><span class="time-win" data-list="3">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="4">----</span><span class="time-win" data-list="4">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="5">----</span><span class="time-win" data-list="5">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="6">----</span><span class="time-win" data-list="6">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="7">----</span><span class="time-win" data-list="7">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="8">----</span><span class="time-win" data-list="8">----</span></li>
+                    <li class="item-list"><span class="name-win" data-list="9">----</span><span class="time-win" data-list="9">----</span></li>
+                </ol>
+            </div>            
+        </section>
+        <div class="reset-statistic">
+            <button class="reset-btn">Сброс статистики</button>
+        </div>
+    </main>
+    
+    <footer class="footer">        
+        <div class="footer-copyright">            
+            <span class="copyright">&#169;&#160;&#160;2022</span><span>Korsikov Aleksandr</span>
+        </div>
+        <div class="footer-link">
+            <a href="https://github.com/Akorsikov/">
+                <img src="./assets/logo/GitHub-Mark-64px.png" alt="link to my profile at Github" width="50" height="50">
+            </a>                    
+            <a href="https://www.facebook.com/profile.php?id=100029339467529">
+                <img src="./assets/logo/Fasebook256.png" alt="link to my profile at Facebook" width="50" height="50">
+            </a>
+            <div class="rss">                        
+                <a href="https://rs.school/js/">
+                    <img src="./assets/logo/rsschool.svg" alt="link to RSSchool">
+                </a>
+            </div>
+        </div>        
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>
