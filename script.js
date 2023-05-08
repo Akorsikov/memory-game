@@ -1,4 +1,4 @@
-  let hasFlippedCard = false;
+let hasFlippedCard = false;
 let lockBoard = false;
 let firstClick = true;
 let gamerName = 'аноним';
@@ -8,7 +8,7 @@ let pairCounter,
     periodGame,
     startTime,
     finishTime,
-    firstCard,    
+    firstCard,
     secondCard;
 
 temporaryObj = JSON.parse(localStorage.getItem('myCount'));
@@ -41,7 +41,7 @@ function flipCard () {
     if (lockBoard) return;
     if (this === firstCard) return;
     if (firstClick) {
-        startTime = Date.now();        
+        startTime = Date.now();
         firstClick = false;
     }
 
@@ -52,8 +52,8 @@ function flipCard () {
         firstCard = this;
         return;
     }
-    secondCard = this;    
-    checkForMatch();    
+    secondCard = this;
+    checkForMatch();
 }
 
 function checkForMatch() {
@@ -73,7 +73,7 @@ function unflipCards() {
     lockBoard = true;
     setTimeout(() => {
     firstCard.classList.remove('flip');
-    secondCard.classList.remove('flip');    
+    secondCard.classList.remove('flip');
     resetBoard();
     }, 1000);//временная задержка для просмотра перевернутых карточек (1сек)
 }
@@ -92,24 +92,24 @@ function resetBoard() {
 })();
 
 function finishGame () {
-    finishTime = Date.now();    
+    finishTime = Date.now();
     periodGame = +((finishTime - startTime) / 1000).toFixed(1);
     resultTime.innerHTML = ` ${timeFormating(periodGame, 'мин', 'сек')}`;
-    lockBoard = true;    
+    lockBoard = true;
     gameOver.classList.add('down');
     queryName();
 }
 
 function timeFormating(period, min, sec) {
     let result;
-    const minutes = Math.trunc(period / 60);    
+    const minutes = Math.trunc(period / 60);
     const seconds = +(period - minutes * 60).toFixed(1);
     if (minutes > 0) result = ` ${minutes} ${min}.  ${seconds} ${sec}.`;
     else result = ` ${seconds} ${sec}.`;
     return result;
 }
 
-function queryName () {    
+function queryName () {
     inputName.focus();
     inputName.addEventListener('keydown', isEnter);
     inputName.addEventListener('keydown', isEsc);
@@ -122,30 +122,30 @@ function getName () {
     inputName.removeEventListener('keydown', isEnter);
     inputName.removeEventListener('keydown', isEsc);
     inputBtn.removeEventListener('click', getName);
-    inputName.value = '';    
+    inputName.value = '';
     gameOver.classList.remove('down')
     putStorage(gamerName, periodGame);
-    restartGame();    
+    restartGame();
 }
 
 function isEnter (event) {
-    if (event.keyCode === 13) {        
+    if (event.keyCode === 13) {
         getName();
     }    
 }
 
 function isEsc (event) {
-    if (event.keyCode === 27) {        
+    if (event.keyCode === 27) {
         getName();
-    }    
+    }
 }
 
 function restartGame () {
-    cards.forEach(card => { 
+    cards.forEach(card => {
         card.classList.remove('flip');
         card.addEventListener('click', flipCard);
     });
-    cards.forEach(card => { 
+    cards.forEach(card => {
         let ramdomPos = Math.floor(Math.random() * 12);
         card.style.order = ramdomPos;
         pairCounter = 0;
@@ -161,71 +161,71 @@ function putStorage (name, time) {
         tempObj;
 
     switch (true) {
-        case (countStorage === 0) : {            
+        case (countStorage === 0) : {
             listPast[countStorage] = [name, time];
             listWin[countStorage] = [name, time];
-            
+
         } break;
-        case (countStorage > 0 && countStorage < 10) : {            
+        case (countStorage > 0 && countStorage < 10) : {
             listPast[countStorage] = [name, time];
             listWin[countStorage] = [name, time];
-            listWin.sort((a, b) => a[1] - b[1]);            
+            listWin.sort((a, b) => a[1] - b[1]);
         }  break;
         default : {
-            listPast = listPast.splice(1);            
-            listPast[countStorage - 1] = [name, time];            
+            listPast = listPast.splice(1);
+            listPast[countStorage - 1] = [name, time];
             listWin[countStorage] = [name, time];
             listWin.sort((a, b) => a[1] - b[1]);
             listWin.splice(countStorage);
             countStorage--;
         }
     }
-    
-    gamerName = 'аноним';    
-    
-    for (let i = 0; i <= countStorage; i++) {        
+
+    gamerName = 'аноним';
+
+    for (let i = 0; i <= countStorage; i++) {
 
         let element = "";
         let namePast = `${listPast[i][0]}`;
         let timePast = listPast[i][1];
         let nameWin = `${listWin[i][0]}`;
-        let timeWin = listWin[i][1];        
+        let timeWin = listWin[i][1];
 
         element = document.querySelector(`.name-past[data-list="${i}"]`);
         element.innerHTML = `${namePast}`;
-        element = document.querySelector(`.time-past[data-list="${i}"]`);        
+        element = document.querySelector(`.time-past[data-list="${i}"]`);
         element.innerHTML =  timeFormating(timePast, 'м', 'c');
 
         element = document.querySelector(`.name-win[data-list="${i}"]`);
         element.innerHTML = `${nameWin}`;
-        element = document.querySelector(`.time-win[data-list="${i}"]`);        
+        element = document.querySelector(`.time-win[data-list="${i}"]`);
         element.innerHTML =  timeFormating(timeWin, 'м', 'c');
         
         listObj = {
             past : {name: namePast, time: timePast},
-            win : {name: nameWin, time: timeWin}    
+            win : {name: nameWin, time: timeWin}
         }            
 
-      serialObj = JSON.stringify(listObj); //сериализуем его      
+      serialObj = JSON.stringify(listObj); //сериализуем его
       localStorage.setItem(`${i}`, serialObj); //запишем его в хранилище по ключу в переменной "i"
     }
 
     countStorage++;
     countObj = { count: countStorage }
     tempObj = JSON.stringify(countObj);
-    localStorage.setItem("myCount", tempObj);   
+    localStorage.setItem("myCount", tempObj);
 }
 
 function getList(key) {
     let array = [];
     let tempObj;
     if (countStorage === 0) {
-        tempObj = JSON.parse(localStorage.getItem('0'));        
+        tempObj = JSON.parse(localStorage.getItem('0'));
         array[0] = tempObj ? [tempObj[key].name, tempObj[key].time] : [];
     } else {
-        for (let i = 0; i < countStorage; i++) {            
-            tempObj = JSON.parse(localStorage.getItem(`${i}`));                
-            array[i] = [tempObj[key].name, tempObj[key].time];            
+        for (let i = 0; i < countStorage; i++) {
+            tempObj = JSON.parse(localStorage.getItem(`${i}`));
+            array[i] = [tempObj[key].name, tempObj[key].time];
         }
     }
     return array;
@@ -246,12 +246,12 @@ function outputOnePastWin (i) {
 
         element = document.querySelector(`.name-past[data-list="${i}"]`);
         element.innerHTML = `${namePast}`;
-        element = document.querySelector(`.time-past[data-list="${i}"]`);        
+        element = document.querySelector(`.time-past[data-list="${i}"]`);
         element.innerHTML =  timeFormating(timePast, 'м', 'c');
 
         element = document.querySelector(`.name-win[data-list="${i}"]`);
         element.innerHTML = `${nameWin}`;
-        element = document.querySelector(`.time-win[data-list="${i}"]`);        
+        element = document.querySelector(`.time-win[data-list="${i}"]`);
         element.innerHTML =  timeFormating(timeWin, 'м', 'c');
 }
 
@@ -260,12 +260,12 @@ function resetStatictics () {
     for (let i = 0; i < 10; i++) {
         element = document.querySelector(`.name-past[data-list="${i}"]`);
         element.innerHTML = '----';
-        element = document.querySelector(`.time-past[data-list="${i}"]`);        
+        element = document.querySelector(`.time-past[data-list="${i}"]`);
         element.innerHTML =  '----';
 
         element = document.querySelector(`.name-win[data-list="${i}"]`);
         element.innerHTML = '----';
-        element = document.querySelector(`.time-win[data-list="${i}"]`);        
+        element = document.querySelector(`.time-win[data-list="${i}"]`);
         element.innerHTML =  '----';
 
         localStorage.removeItem(`${i}`);
@@ -282,12 +282,12 @@ function choiceTheme () {
     for (let i = 1; i < 13; i++) {
         element = document.querySelector(`.memory-card[data-theme="${i}"]`);
         element.innerHTML = `<img class="front-face" src="./assets/img/${theme}/${i}.png" alt="image ${i}">
-                            <img class="back-face" src="./assets/img/${theme}/0.png" alt="image 0">`;        
+                            <img class="back-face" src="./assets/img/${theme}/0.png" alt="image 0">`;
     }
     element = document.querySelector('.audio');
-    element.src = `./assets/img/${theme}/treck.mp3`;    
+    element.src = `./assets/img/${theme}/track.mp3`;
     element.volume=0.25;
-    element.play();    
+    element.play();
 }
 
 console.log('1. Вёрстка +10');
@@ -301,6 +301,6 @@ console.log('5. Результаты последних 10 игр сохраня
 console.log('6. По клику на карточку – она переворачивается плавно, если пара не совпадает – обе карточки так же плавно переварачиваются рубашкой вверх +10');
 console.log('7. Очень высокое качество оформления приложения и/или дополнительный не предусмотренный в задании функционал, улучшающий качество приложения +10');
 console.log('   -высокое качество оформления приложения предполагает собственное оригинальное оформление равное или отличающееся в лучшую сторону по сравнению с демо');
-console.log('!!! по п.7 добавил сброс статистики, смену темы карточек и аудиоплеер, который меняет трек при смене темы.');
+console.log('!!! по п.7 добавил сброс статистики, смену темы карточек и аудиоплеер, который меняет трек при смене темы. Автозатпуск плеера(стр. 290) браузеры блокируют считая это навязчивой рекламой.');
 console.log('');
 console.log('Считаю задание полностью выполнено, оцениваю свою работу на 60 баллов. ');
